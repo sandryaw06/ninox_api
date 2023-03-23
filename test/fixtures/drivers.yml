@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  driver_id: MyString
+  name_on_system: MyString
+  truck: MyString
+  current_status: MyString
+  cycle_remainind: MyString
+
+two:
+  driver_id: MyString
+  name_on_system: MyString
+  truck: MyString
+  current_status: MyString
+  cycle_remainind: MyString

@@ -1,0 +1,2 @@
+class Samsara < ApplicationRecord
+end
