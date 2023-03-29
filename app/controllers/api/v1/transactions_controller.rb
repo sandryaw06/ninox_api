@@ -4,7 +4,7 @@ class Api::V1::TransactionsController < ApplicationController
     include SamsaraHelper
 
     def index
-        print params
+       
         # ?from=2023-03-01&to=2023-03-03
         if params[:from].nil? || params[:to].nil?
             @transactions = get_week_transaction(nil,nil)
@@ -43,7 +43,6 @@ class Api::V1::TransactionsController < ApplicationController
                             product_qty: p["quantity"],
                             product_cost: p["unitCost"]
                     }
-                    print prod_obj
                     products << prod_obj
                     if prod_obj[:product_name].include? "Diesel"
                         product_diesel_qty = p["quantity"]
@@ -79,6 +78,7 @@ class Api::V1::TransactionsController < ApplicationController
                     #[:product_details, :station, :eventDate, :postHr, :eventHr, :odomiles, :gps_location, ].each { |k| new_t.delete(k) }
                     transaction_obj = Transaction.new({
                         truck: new_t[:truck],
+                        post_data: postDate,
                         time_post_data: new_t[:time_post_data],
                         sub_total: new_t[:sub_total],
                         event_data: new_t[:event_data],
