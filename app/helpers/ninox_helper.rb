@@ -41,7 +41,9 @@ module NinoxHelper
                 "gps_": t["gps_location"],
                 "diesel_qty_": t["product_qty"],
                 "diesel_unit_price_": t["product_cost"],
-                "is_fuel_": is_fuel ? is_fuel : false
+                "is_fuel_": is_fuel ? is_fuel : false,
+                "diesel_discount_": t["product_discount"],
+                "diesel_adjustedPrice_": t["product_adjustment_price"]
                 # "product_": t["product"]["product_name"],
                 # "productQty_": t["product"]["product_qty"],
                 # "productCostUnit_": t["product"]["product_cost"]

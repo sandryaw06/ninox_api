@@ -34,19 +34,23 @@ class Api::V1::TransactionsController < ApplicationController
                 post_hr = subt["postDate"].split("-")[3].gsub(".",":")
                 event_hr = subt["eventDate"].split("-")[3].gsub(".",":")
                 products = []
-                product_details, product_diesel_qty, product_diesel_cost  = ""
+                product_details, product_diesel_qty, product_diesel_cost, product_discount, product_adjustment_price  = ""
                 prods = prods.each do |p|
                     p = p["productDetail"]
                     prod_obj = {
                             product_name: get_product_name(products_data, p["productCode"]),
                             product_code: p["productCode"],
                             product_qty: p["quantity"],
-                            product_cost: p["unitCost"]
+                            product_cost: p["unitCost"],
+                            product_discount: p["discount"],
+                            product_adjustment_price: p["adjustedPrice"]
                     }
                     products << prod_obj
                     if prod_obj[:product_name].include? "Diesel"
                         product_diesel_qty = p["quantity"]
                         product_diesel_cost = p["unitCost"]
+                        product_discount = p["discount"]
+                        product_adjustment_price = p["adjustedPrice"]
                     end
                     
                     product_details = product_details + " --> "+ "#{get_product_name(products_data, p["productCode"])}: #{p["quantity"]} - #{p["unitCost"]}/u   "
@@ -71,6 +75,8 @@ class Api::V1::TransactionsController < ApplicationController
                         product_details: product_details,
                         product_qty: product_diesel_qty,
                         product_cost: product_diesel_cost,
+                        product_discount: product_discount,
+                        product_adjustment_price: product_adjustment_price,
                         time_post_data: post_hr
 
                     }
