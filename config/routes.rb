@@ -16,6 +16,8 @@ Rails.application.routes.draw do
         
       end
       get "/drivers", to: "samsaras#drivers"
+
     end
+
   end
 end

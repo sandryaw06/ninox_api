@@ -22,7 +22,7 @@ module QuikqHelper
         authorization_token = JSON.parse(authorization_token)
 
         if authorization_token["status"] == "success"
-            return "Bearer #{authorization_token["data"]["token"]}"
+            return 
         else
             return "error"
         end

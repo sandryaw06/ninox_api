@@ -34,15 +34,16 @@ class Api::V1::TransactionsController < ApplicationController
                 post_hr = subt["postDate"].split("-")[3].gsub(".",":")
                 event_hr = subt["eventDate"].split("-")[3].gsub(".",":")
                 products = []
-                product_details, product_diesel_qty, product_diesel_cost, product_discount, product_adjustment_price  = ""
+                product_details,product_total, def_qty, def_cost, def_discount, def_total, def_adjustment_price, product_diesel_qty, product_diesel_cost, product_discount, product_adjustment_price  = ""
                 prods = prods.each do |p|
                     p = p["productDetail"]
                     prod_obj = {
                             product_name: get_product_name(products_data, p["productCode"]),
                             product_code: p["productCode"],
                             product_qty: p["quantity"],
-                            product_cost: p["unitCost"],
+                            product_unit_cost: p["unitCost"],
                             product_discount: p["discount"],
+                            product_total: p["productTotal"],
                             product_adjustment_price: p["adjustedPrice"]
                     }
                     products << prod_obj
@@ -50,7 +51,15 @@ class Api::V1::TransactionsController < ApplicationController
                         product_diesel_qty = p["quantity"]
                         product_diesel_cost = p["unitCost"]
                         product_discount = p["discount"]
-                        product_adjustment_price = p["adjustedPrice"]
+                        product_total = p["productTotal"]
+                        product_adjustment_price = p["adjustedPrice"]   
+
+                    elsif prod_obj[:product_name].include? "DEF"
+                        def_qty = p["quantity"]
+                        def_cost = p["unitCost"]
+                        def_discount = p["discount"]
+                        def_total = p["productTotal"]
+                        def_adjustment_price = p["adjustedPrice"]
                     end
                     
                     product_details = product_details + " --> "+ "#{get_product_name(products_data, p["productCode"])}: #{p["quantity"]} - #{p["unitCost"]}/u   "
@@ -69,14 +78,21 @@ class Api::V1::TransactionsController < ApplicationController
                         post_data: postDate,
                         postHr: post_hr,
                         eventHr: event_hr,
+                        adjustment_total: subt["adjSubTotal"],
                         sub_total: subt["subTotal"],
                         odomiles: odometer_obj.nil? ? "" : odometer_obj[:odo_miles],
                         gps_location: odometer_obj.nil? ? "" : odometer_obj[:gps_location],
                         product_details: product_details,
-                        product_qty: product_diesel_qty,
-                        product_cost: product_diesel_cost,
+                        product_diesel_qty: product_diesel_qty,
+                        product_diesel_cost: product_diesel_cost,
                         product_discount: product_discount,
+                        product_total: product_total,
                         product_adjustment_price: product_adjustment_price,
+                        def_qty: def_qty,
+                        def_cost: def_cost,
+                        def_discount: def_discount,
+                        def_total: def_total,
+                        def_adjustment_price: def_adjustment_price,
                         time_post_data: post_hr
 
                     }
@@ -89,7 +105,7 @@ class Api::V1::TransactionsController < ApplicationController
                         sub_total: new_t[:sub_total],
                         event_data: new_t[:event_data],
                         product_qty: new_t[:product_qty],
-                        product_cost: new_t[:product_cost]
+                        product_cost: new_t[:product_diesel_cost]
 
                     })
                     transaction_obj.save

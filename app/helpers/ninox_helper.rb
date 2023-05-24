@@ -36,17 +36,21 @@ module NinoxHelper
                 "postHr_": t["postHr"],
                 "eventHr_": t["eventHr"],
                 "subTotal_": t["sub_total"],
+                "total_ajustado_": t["adjustment_total"],
                 "productDetails_": t["product_details"],
                 "odoMiles_": t["odomiles"],
                 "gps_": t["gps_location"],
-                "diesel_qty_": t["product_qty"],
-                "diesel_unit_price_": t["product_cost"],
                 "is_fuel_": is_fuel ? is_fuel : false,
                 "diesel_discount_": t["product_discount"],
-                "diesel_adjustedPrice_": t["product_adjustment_price"]
-                # "product_": t["product"]["product_name"],
-                # "productQty_": t["product"]["product_qty"],
-                # "productCostUnit_": t["product"]["product_cost"]
+                "diesel_adjustedPrice_": t["product_adjustment_price"],
+                "diesel_productTotal_": t["product_total"],
+                "diesel_qty_": t["product_diesel_qty"],
+                "diesel_unit_price_": t["product_diesel_cost"],
+                "def_discount_": t["def_discount"],
+                "def_unit_price_": t["def_cost"],
+                "def_qty_": t["def_qty"],
+                "def_adjustedPrice_": t["def_adjustment_price"],
+                "def_productTotal_": t["def_total"]
             }}
             ninox_transactions.append(new_record)
         end
