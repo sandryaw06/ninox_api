@@ -11,6 +11,8 @@ class Api::V1::TransactionsController < ApplicationController
         else
             @transactions = get_week_transaction("#{params[:from]}T00:00:00-00:00","#{params[:to]}T23:59:00-00:00")
         end
+
+        #render json: get_week_transaction("#{params[:from]}T00:00:00-00:00","#{params[:to]}T23:59:00-00:00")
         render json:  post_transaction_table(transform_transactions(@transactions))
     end
 

@@ -23,5 +23,10 @@ module LtlApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    ## Samsara resources
+    config.samsara_base_url = "https://api.samsara.com"
+    config.samsara_auth_url = "https://api.samsara.com/oauth2/token"
+    config.samsara_access_token = "samsara_api_DevKsTUTyzrUPpgzm9rCWBfLfYii6p"
   end
 end
