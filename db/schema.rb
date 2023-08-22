@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_03_10_204639) do
   create_table "drivers", force: :cascade do |t|
+    t.string "driver_id"
     t.string "name_on_system"
     t.string "truck"
     t.string "current_status"
